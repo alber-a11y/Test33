@@ -112,7 +112,7 @@ async function boot(): Promise<void> {
   setTimeout(() => bootEl.remove(), 500);
 
   // debug/automation hooks
-  (window as unknown as Record<string, unknown>).__capy = { nav, Save, game, Ads, Pause };
+  (window as unknown as Record<string, unknown>).__capy = { nav, Save, game, Ads, Pause, audio };
 }
 
 void boot();

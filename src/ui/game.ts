@@ -584,7 +584,7 @@ export class GameScreen implements Screen {
 
   private pauseMenu(): void {
     if (this.state !== 'play') return;
-    Pause.acquire('menu', { audio: false });
+    Pause.acquire('menu', { audio: false, loop: false });
     const m = modal({ title: t('pause'), ribbon: 'blue', closable: true, onClose: () => Pause.release('menu') });
     const s = Save.data.settings;
     const toggles = h('div', { class: 'row' });

@@ -95,3 +95,11 @@ await Ads.init(new MyNetwork());   // в src/main.ts
 npm run build && npx vite preview --port 4173 &
 DEV=phone node scripts/shots.mjs http://localhost:4173/ shots menu,levels,play
 ```
+
+## Скриншоты
+
+![Главное меню, карта, уровни](docs/screenshots/1-main.jpg)
+![Обучение, победа, поражение, реклама](docs/screenshots/2-flow.jpg)
+![Магазин и ежедневный подарок](docs/screenshots/3-shop.jpg)
+![Пауза, бустер, настройки](docs/screenshots/4-more.jpg)
+![ПК](docs/screenshots/5-pc.jpg)

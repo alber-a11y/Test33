@@ -65,10 +65,10 @@ export class FreeBoard implements Board {
 
   layout(rect: Rect): void {
     const b = this.level.bounds;
-    const margin = 0.9;
+    const margin = 0.7;
     const bw = b.x1 - b.x0 + margin * 2;
     const bh = b.y1 - b.y0 + margin * 2;
-    this.S = Math.min(rect.w / bw, rect.h / bh, 78);
+    this.S = Math.min(rect.w / bw, rect.h / bh, 84);
     this.ox = rect.x + rect.w / 2 - ((b.x0 + b.x1) / 2) * this.S;
     this.oy = rect.y + rect.h / 2 - ((b.y0 + b.y1) / 2) * this.S;
     this.root.hitArea = new Rectangle(rect.x - 40, rect.y - 40, rect.w + 80, rect.h + 80);

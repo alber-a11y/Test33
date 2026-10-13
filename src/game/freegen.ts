@@ -273,6 +273,27 @@ function buildLock(p: FreeGenParams, rng: Rng): { pieces: WPiece[]; items: FreeI
   return { pieces, items };
 }
 
+/** Bounding box of the start state and every state along the solution. */
+function solutionBounds(sim: FreeSim, start: number[], path: { piece: number; dir: 1 | -1 }[]) {
+  const b = { x0: Infinity, y0: Infinity, x1: -Infinity, y1: -Infinity };
+  const r = start.slice();
+  const add = () => {
+    for (const S of sim.world(r).segs)
+      for (let k = 0; k < S.length; k += 2) {
+        b.x0 = Math.min(b.x0, S[k]);
+        b.x1 = Math.max(b.x1, S[k]);
+        b.y0 = Math.min(b.y0, S[k + 1]);
+        b.y1 = Math.max(b.y1, S[k + 1]);
+      }
+  };
+  add();
+  for (const m of path) {
+    r[m.piece] = (r[m.piece] + m.dir + 4) & 3;
+    add();
+  }
+  return b;
+}
+
 /** Generate a solvable free level (BFS-verified), preferring par near targetPar. */
 export function generateFree(p: FreeGenParams, rng: Rng, attempts = 40, budgetMs = 400): FreeLevel | null {
   let best: FreeLevel | null = null;
@@ -288,12 +309,12 @@ export function generateFree(p: FreeGenParams, rng: Rng, attempts = 40, budgetMs
     if (sim.overlaps(ws)) continue;
     if (sim.freeMask(rots, ws) !== 0) continue;
     // clamps must not make it unsolvable: solve with clamps
-    const res = solveFree(sim, rots, 0, 6000, true);
+    const res = solveFree(sim, rots, 0, 6000);
     if (!res) continue;
     if (res.par < p.minPar || res.par > p.maxPar) continue;
     level.par = res.par;
     level.solution = res.path;
-    level.bounds = res.bounds;
+    level.bounds = solutionBounds(sim, rots, res.path);
     if (p.bombs > 0) level.fuse = res.par + p.slack + 2;
     if (p.hard) level.moveLimit = res.par + p.slack;
     if (res.par === p.targetPar) return level;

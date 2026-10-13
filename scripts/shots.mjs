@@ -66,6 +66,20 @@ async function tapSuggested(p) {
 }
 
 const scenarios = {
+  async skins(dev) {
+    for (const [skin, n] of (process.env.SKINS || 'neon:19,branches:18,ropes:26,gold:23,lava:12,wires:21').split(',').map((x) => x.split(':'))) {
+      const { ctx, p } = await page(dev, `?level=${n}`, { ...SAVE, equipped: { skin, bg: 'auto', hat: 'crown' }, tips: { path: true, free: true, lock: true, bomb: true, link: true, colors: true } });
+      await p.waitForTimeout(2600);
+      const close = await p.$('.modal .link');
+      if (close) { await close.click({ force: true }); await p.waitForTimeout(500); }
+      await p.screenshot({ path: `${out}/${dev}-skin-${skin}-${n}.png` });
+      if (skin === 'neon') {
+        const st = await p.evaluate(() => { const a = window.__capy.audio; return a && a.ctx ? a.ctx.state : 'none'; });
+        logs.push(`[${dev}] audio ctx: ${st}`);
+      }
+      await ctx.close();
+    }
+  },
   async fresh(dev) {
     const { ctx, p } = await page(dev, '');
     await p.screenshot({ path: `${out}/${dev}-fresh-menu.png` });
