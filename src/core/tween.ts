@@ -56,10 +56,15 @@ export class Tweens {
     return this.run(sec, () => {}, { ease: Ease.linear });
   }
 
+  /** Stop tweens with this tag; their promises resolve immediately. */
   killTag(tag: unknown): void {
+    const killed = this.list.filter((tw) => tw.tag === tag);
+    if (!killed.length) return;
     this.list = this.list.filter((tw) => tw.tag !== tag);
+    killed.forEach((tw) => tw.resolve());
   }
 
+  /** Drop everything (pending promises never resolve, so continuations of a torn-down scene don't run). */
   clear(): void {
     this.list = [];
   }

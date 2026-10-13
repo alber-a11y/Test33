@@ -12,7 +12,7 @@ function solvePathTrivially(l: PathLevel): boolean {
 describe('levels', () => {
   test('first 60 levels are valid and deterministic', () => {
     const rows: string[] = [];
-    for (let n = 1; n <= 60; n++) {
+    for (let n = 1; n <= 90; n++) {
       const t0 = performance.now();
       const a = getLevel(n);
       const dt = performance.now() - t0;

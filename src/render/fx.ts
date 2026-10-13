@@ -51,7 +51,7 @@ class Fx {
   confetti(): void {
     const W = stage.width;
     for (let i = 0; i < 90; i++) {
-      const s = new Sprite(tex(i % 3 === 0 ? 'star' : 'confetti'));
+      const s = new Sprite(tex(i % 3 === 0 ? 'star4' : 'confetti'));
       s.anchor.set(0.5);
       const size = 10 + Math.random() * 10;
       s.width = i % 3 === 0 ? size : size * 0.55;

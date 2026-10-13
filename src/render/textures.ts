@@ -21,7 +21,7 @@ function particleSvg(kind: string): string {
   switch (kind) {
     case 'spark':
       return `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g"><stop offset="0" stop-color="#fff"/><stop offset=".3" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs><circle cx="32" cy="32" r="32" fill="url(#g)"/></svg>`;
-    case 'star':
+    case 'star4':
       return `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M32 2 L38 26 L62 32 L38 38 L32 62 L26 38 L2 32 L26 26Z" fill="#fff"/></svg>`;
     case 'leaf':
       return `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M8 56 C8 24 28 8 58 6 C56 36 40 56 8 56Z" fill="#fff"/><path d="M10 54 L46 18" stroke="#000" stroke-opacity=".2" stroke-width="3"/></svg>`;
@@ -60,7 +60,7 @@ export async function loadTextures(): Promise<void> {
   for (const p of PRIZES) add(p, prizeSvg(p), 160);
   add('bomb', prizeSvg('bomb'), 160);
   add('coin', prizeSvg('coin'), 96);
-  for (const k of ['spark', 'star', 'leaf', 'flake', 'bubble', 'heart', 'confetti', 'petal', 'clamp', 'pin', 'circle'])
+  for (const k of ['spark', 'star4', 'leaf', 'flake', 'bubble', 'heart', 'confetti', 'petal', 'clamp', 'pin', 'circle'])
     add(k, particleSvg(k), k === 'clamp' || k === 'pin' ? 96 : 64);
   add('hand', particleSvg('hand'), 160);
   await Promise.all(jobs);

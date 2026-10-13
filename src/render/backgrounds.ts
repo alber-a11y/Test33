@@ -99,7 +99,7 @@ export const THEME_DEFS: Record<ThemeId, ThemeDef> = {
     scenery: `<circle cx="330" cy="70" r="30" fill="#ff8a65"/><ellipse cx="330" cy="70" rx="48" ry="9" fill="none" stroke="#ffcc80" stroke-width="4" transform="rotate(-18 330 70)"/>
       <circle cx="60" cy="210" r="18" fill="#80deea"/><circle cx="54" cy="204" r="5" fill="#fff" opacity=".4"/>
       <path d="M0 280 C100 270 300 290 400 276 V300 H0Z" fill="#3a2f72"/>`,
-    particles: { tex: 'star', colors: [0xffffff, 0xfff59d, 0xb3e5fc], count: 40, motion: 'twinkle', size: [5, 12], speed: 0 },
+    particles: { tex: 'star4', colors: [0xffffff, 0xfff59d, 0xb3e5fc], count: 40, motion: 'twinkle', size: [5, 12], speed: 0 },
   },
 };
 

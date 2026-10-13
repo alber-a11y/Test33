@@ -308,10 +308,10 @@ export class PathBoard implements Board {
     }
     const jobs = group.map((i) => {
       const v = this.views[i]!;
-      const from = v.angle;
-      v.angle = from + dir * HALF;
-      const to = v.angle;
       stage.tweens.killTag(v);
+      const from = v.c.rotation;
+      v.angle += dir * HALF;
+      const to = v.angle;
       return stage.tweens.run(
         0.2,
         (k) => {
@@ -609,7 +609,7 @@ export class PathBoard implements Board {
     for (const i of wrong) {
       const taps = this.tapsNeeded(i);
       const { x, y } = this.center(i);
-      fx.burst(x, y, { count: 10, tex: 'star', colors: [0xffe066, 0xffffff, 0xb388ff], speed: 140, gravity: 0, size: 14 });
+      fx.burst(x, y, { count: 10, tex: 'star4', colors: [0xffe066, 0xffffff, 0xb388ff], speed: 140, gravity: 0, size: 14 });
       for (let k = 0; k < taps; k++) {
         if (this.won) break;
         await this.rotateGroup(i, 1, false);

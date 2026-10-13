@@ -114,7 +114,7 @@ html, body {
 .modal.on { opacity: 1; }
 .modal .panel { width: min(420px, 100%); max-height: calc(100% - 30px); overflow: visible; margin-top: 26px; padding: 46px 20px 22px; position: relative; text-align: center; transform: scale(.7); transition: transform .32s cubic-bezier(.2,1.6,.4,1); }
 .modal.on .panel { transform: none; }
-.ribbon { position: absolute; top: -26px; left: 50%; transform: translateX(-50%); background: linear-gradient(#ff8a4c, #f0632a); color: #fff; font-weight: 900; font-size: 28px; padding: 8px 34px;
+.ribbon { position: absolute; top: -26px; left: 50%; transform: translateX(-50%); background: linear-gradient(#ff8a4c, #f0632a); color: #fff; font-weight: 900; font-size: clamp(20px, 6.4vw, 28px); padding: 8px clamp(18px, 6vw, 34px); max-width: 94%;
   border-radius: 16px; box-shadow: 0 5px 0 #c24818; white-space: nowrap; text-shadow: 0 2px 0 rgba(0,0,0,.2); }
 .ribbon.green { background: linear-gradient(#7be05a, #4fbf2c); box-shadow: 0 5px 0 #33901a; }
 .ribbon.blue { background: linear-gradient(#6cc8ff, #3aa4f0); box-shadow: 0 5px 0 #1d7ac2; }
@@ -123,6 +123,7 @@ html, body {
 .modal-close .ic { width: 22px; height: 22px; }
 .modal p { font-size: 18px; font-weight: 800; margin: 8px 0 16px; color: var(--ink-soft); }
 .modal .row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+.modal .row .btn:not(.btn-icon) { flex: 1 1 0; min-width: 0; padding-left: 10px; padding-right: 10px; }
 .modal .col { display: flex; flex-direction: column; gap: 14px; align-items: stretch; margin-top: 12px; }
 
 /* ---------- capybara ---------- */

@@ -54,7 +54,7 @@ const HAND: Spec[] = [
   /* 27 */ P({ w: 6, h: 6, shape: 'heart', coverage: 0.85, targets: 2, bonus: 2, links: 2, minPar: 11 }),
   /* 28 */ F({ template: 'flower', pieces: 6, arms: 5, prizes: 2, locks: 1, targetPar: 5 }),
   /* 29 */ P({ w: 6, h: 7, shape: 'hourglass', coverage: 0.85, colors: 2, targets: 2, bombs: 1, minPar: 11, slack: 5 }),
-  /* 30 */ F({ template: 'flower', pieces: 7, arms: 5, prizes: 2, bombs: 1, targetPar: 6, hard: true, slack: 4 }),
+  /* 30 */ F({ template: 'flower', pieces: 6, arms: 5, prizes: 2, bombs: 1, targetPar: 5, hard: true, slack: 4 }),
 ];
 
 const PATH_DEFAULTS: PathGenParams = {
@@ -140,19 +140,24 @@ function genSpec(n: number, rng: Rng): Spec {
   const r = rng.next();
   let spec: FreeSpec;
   if (d < 0.25) {
-    spec = r < 0.5 ? F({ template: 'tree', pieces: rng.int(2, 4), prizes: rng.int(1, 2) }) : F({ template: 'lock', pieces: 2 });
+    spec =
+      r < 0.25
+        ? F({ template: 'tree', pieces: rng.int(3, 4), prizes: 2 })
+        : r < 0.75
+          ? F({ template: 'flower', arms: 4, pieces: rng.int(4, 5), prizes: 2 })
+          : F({ template: 'lock', pieces: 3 });
   } else if (d < 0.55) {
     spec =
-      r < 0.65
-        ? F({ template: 'flower', arms: 4, pieces: rng.int(4, 5), prizes: 2 })
-        : F({ template: 'lock', pieces: 3 });
+      r < 0.7
+        ? F({ template: 'flower', arms: rng.int(4, 5), pieces: rng.int(5, 6), prizes: 2 })
+        : F({ template: 'lock', pieces: rng.int(3, 4) });
   } else {
     spec =
-      r < 0.75
-        ? F({ template: 'flower', arms: rng.int(4, 5), pieces: rng.int(5, 7), prizes: rng.int(2, 3) })
-        : F({ template: 'lock', pieces: rng.int(3, 4) });
+      r < 0.8
+        ? F({ template: 'flower', arms: rng.int(4, 5), pieces: rng.int(6, 7), prizes: rng.int(2, 3) })
+        : F({ template: 'lock', pieces: 4 });
   }
-  spec.targetPar = 2 + Math.round(d * 5);
+  spec.targetPar = spec.template === 'lock' ? 3 + Math.round(d * 2) : 3 + Math.round(d * 4);
   spec.minPar = Math.max(2, spec.targetPar - 2);
   spec.locks = d > 0.4 && rng.chance(0.4) ? 1 : 0;
   spec.bombs = d > 0.3 && spec.template === 'flower' && rng.chance(0.35) ? 1 : 0;

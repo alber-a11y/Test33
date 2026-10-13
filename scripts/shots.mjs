@@ -66,6 +66,90 @@ async function tapSuggested(p) {
 }
 
 const scenarios = {
+  async fresh(dev) {
+    const { ctx, p } = await page(dev, '');
+    await p.screenshot({ path: `${out}/${dev}-fresh-menu.png` });
+    await p.click('.play-btn', { force: true });
+    await p.waitForTimeout(3000);
+    await p.screenshot({ path: `${out}/${dev}-fresh-level1.png` });
+    const audioState = await p.evaluate(() => window.__capy && document.querySelector('canvas') ? 'ok' : 'no');
+    for (let i = 0; i < 6; i++) { if (!(await tapSuggested(p))) break; await p.waitForTimeout(500); }
+    await p.waitForTimeout(3500);
+    await p.screenshot({ path: `${out}/${dev}-fresh-win.png` });
+    logs.push(`[${dev}] fresh ${audioState} state=${await p.evaluate(() => window.__capy.game.state)}`);
+    await ctx.close();
+  },
+  async lose(dev) {
+    // level 10 is a hard path level with a move limit: waste moves on a decoy
+    const { ctx, p } = await page(dev, '?level=10', { ...SAVE, tips: { path: true } });
+    await p.waitForTimeout(1600);
+    // close the hard-level offer if present
+    const close = await p.$('.modal .link');
+    if (close) await close.click({ force: true });
+    await p.waitForTimeout(400);
+    for (let i = 0; i < 60; i++) {
+      const st = await p.evaluate(() => window.__capy.game.state);
+      if (st !== 'play') break;
+      const pt = await p.evaluate(() => {
+        const b = window.__capy.game.board;
+        const idx = b.level.cells.findIndex((c) => c && c.kind === 'I' || c && c.kind === 'X');
+        const j = idx >= 0 ? idx : b.level.cells.findIndex((c) => c && !c.fixed && !c.locked);
+        return b.center(j);
+      });
+      await p.mouse.click(pt.x, pt.y);
+      await p.waitForTimeout(260);
+    }
+    await p.waitForTimeout(900);
+    await p.screenshot({ path: `${out}/${dev}-lose.png` });
+    // watch ad to continue
+    const adBtn = await p.$('.modal .btn-purple');
+    if (adBtn) {
+      await adBtn.click({ force: true });
+      await p.waitForTimeout(1500);
+      await p.screenshot({ path: `${out}/${dev}-ad-rewarded.png` });
+      await p.waitForTimeout(6000);
+      await p.screenshot({ path: `${out}/${dev}-ad-rewarded-done.png` });
+      await p.click('.ad-close', { force: true });
+      await p.waitForTimeout(800);
+      const st = await p.evaluate(() => [window.__capy.game.state, window.__capy.game.movesLeft]);
+      logs.push(`[${dev}] after continue: ${st}`);
+      await p.screenshot({ path: `${out}/${dev}-after-continue.png` });
+    }
+    await ctx.close();
+  },
+  async dialogs(dev) {
+    const { ctx, p } = await page(dev, '', { ...SAVE, daily: { last: '', streak: 0 } });
+    await p.click('.gift-btn.wiggle:has(.badge)', { force: true });
+    await p.waitForTimeout(700);
+    await p.screenshot({ path: `${out}/${dev}-daily.png` });
+    await p.click('.modal .btn-green', { force: true });
+    await p.waitForTimeout(1200);
+    await p.click('.play-btn', { force: true });
+    await p.waitForTimeout(2600);
+    await p.click('.hud-top .btn-icon', { force: true });
+    await p.waitForTimeout(600);
+    await p.screenshot({ path: `${out}/${dev}-pause.png` });
+    await p.click('.modal .modal-close', { force: true });
+    await p.waitForTimeout(400);
+    // exhaust hints and open offer
+    await p.evaluate(() => { window.__capy.Save.data.boosters.hint = 0; window.__capy.game.updateBoosters(); });
+    await p.click('.booster', { force: true });
+    await p.waitForTimeout(600);
+    await p.screenshot({ path: `${out}/${dev}-booster-offer.png` });
+    await ctx.close();
+  },
+  async chest(dev) {
+    const { ctx, p } = await page(dev, '?level=1', { ...SAVE, basket: 9, tips: { path: true } });
+    await p.waitForTimeout(1800);
+    await tapSuggested(p);
+    await p.waitForTimeout(3200);
+    const link = await p.$('.modal .link');
+    await p.waitForTimeout(2000);
+    if (link) await link.click({ force: true });
+    await p.waitForTimeout(1600);
+    await p.screenshot({ path: `${out}/${dev}-chest.png` });
+    await ctx.close();
+  },
   async play(dev) {
     const n = Number(process.env.PLAY || 1);
     const { ctx, p } = await page(dev, `?level=${n}`, { ...SAVE, level: Math.max(n, 27), tips: {} });

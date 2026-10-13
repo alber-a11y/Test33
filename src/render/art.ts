@@ -30,8 +30,8 @@ function eyes(mood: CapyMood): string {
     case 'sad':
       return `<g class="capy-eyes"><ellipse cx="77" cy="74" rx="6.5" ry="7.5" fill="${C.ink}"/><circle cx="79" cy="71" r="2.4" fill="#fff"/>
               <ellipse cx="123" cy="74" rx="6.5" ry="7.5" fill="${C.ink}"/><circle cx="125" cy="71" r="2.4" fill="#fff"/></g>
-              <path d="M66 62 L86 66" stroke="${C.ink}" stroke-width="3.5" stroke-linecap="round"/>
-              <path d="M134 62 L114 66" stroke="${C.ink}" stroke-width="3.5" stroke-linecap="round"/>
+              <path d="M66 66 L86 60" stroke="${C.ink}" stroke-width="3.5" stroke-linecap="round"/>
+              <path d="M134 66 L114 60" stroke="${C.ink}" stroke-width="3.5" stroke-linecap="round"/>
               <path d="M70 84 q-4 8 0 11 q4 -3 0 -11z" fill="#6EC6FF"/>`;
     case 'think':
       return `<g class="capy-eyes"><ellipse cx="77" cy="73" rx="6.5" ry="7.5" fill="${C.ink}"/><circle cx="80" cy="69" r="2.6" fill="#fff"/>

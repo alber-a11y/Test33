@@ -42,6 +42,7 @@ async function boot(): Promise<void> {
   fx.init();
   bgRef.bg = new Background(document.getElementById('bg')!);
   await Ads.init();
+  Ads.levelsCompleted = Save.data.level - 1;
   Ads.onToast = (m) => toast(m);
 
   // screens

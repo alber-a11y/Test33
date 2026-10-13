@@ -324,7 +324,7 @@ export class FreeBoard implements Board {
     if (it.kind === 'bomb') {
       this.host.sfx('magic');
       this.host.itemCollected('bomb');
-      fx.burst(s.x, s.y, { count: 12, tex: 'star', colors: [0x9be7ff, 0xffffff], speed: 160, gravity: 0 });
+      fx.burst(s.x, s.y, { count: 12, tex: 'star4', colors: [0x9be7ff, 0xffffff], speed: 160, gravity: 0 });
       const sx = s.x;
       const sy = s.y;
       void stage.tweens.run(0.6, (k) => {
@@ -454,7 +454,7 @@ export class FreeBoard implements Board {
       const ws = this.sim.world(this.rots);
       fx.burst(this.ox + ws.px[m.piece] * this.S, this.oy + ws.py[m.piece] * this.S, {
         count: 12,
-        tex: 'star',
+        tex: 'star4',
         colors: [0xffe066, 0xffffff, 0xb388ff],
         speed: 150,
         gravity: 0,
