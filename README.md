@@ -103,3 +103,5 @@ DEV=phone node scripts/shots.mjs http://localhost:4173/ shots menu,levels,play
 ![Магазин и ежедневный подарок](docs/screenshots/3-shop.jpg)
 ![Пауза, бустер, настройки](docs/screenshots/4-more.jpg)
 ![ПК](docs/screenshots/5-pc.jpg)
+![Капибара в игре](docs/screenshots/6-capybara-ingame.jpg)
+![Эмоции и шапки капибары](docs/screenshots/7-capybara-moods-hats.jpg)

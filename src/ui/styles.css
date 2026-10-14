@@ -128,9 +128,9 @@ html, body {
 
 /* ---------- capybara ---------- */
 .capy { overflow: visible; }
-.capy .capy-headg { transform-origin: 100px 120px; animation: capy-bob 3.2s ease-in-out infinite; }
-.capy .capy-bodyg { transform-origin: 100px 188px; animation: capy-breathe 3.2s ease-in-out infinite; }
-.capy .capy-eyes { transform-origin: 100px 74px; animation: capy-blink 4.5s infinite; }
+.capy .capy-headg { transform-origin: 110px 112px; animation: capy-bob 3.2s ease-in-out infinite; }
+.capy .capy-bodyg { transform-origin: 112px 190px; animation: capy-breathe 3.2s ease-in-out infinite; }
+.capy .capy-eyes { transform-origin: 116px 58px; animation: capy-blink 4.5s infinite; }
 .capy-happy .capy-headg { animation: capy-hop .6s ease-in-out infinite; }
 .capy-happy .capy-bodyg { animation: capy-hop .6s ease-in-out infinite; }
 .capy-sad .capy-headg { transform: translateY(4px) rotate(-4deg); animation: none; }
@@ -157,7 +157,7 @@ html, body {
 .logo span:nth-child(2) { animation-delay: .2s; color: #8ee86b; }
 @keyframes logo-wave { 50% { transform: translateY(-6px) rotate(3deg); } }
 .tagline { font-weight: 900; font-size: 18px; color: #fff; background: rgba(90,52,24,.55); padding: 4px 14px; border-radius: 999px; margin-top: 6px; }
-.onsen { position: relative; width: min(330px, 78vw); height: min(250px, 30vh); min-height: 150px; margin: 4px 0; }
+.onsen { position: relative; width: min(330px, 78vw); height: min(250px, 30vh); min-height: 150px; margin: 18px 0 4px; }
 .onsen .capy { position: absolute; left: 50%; bottom: 18%; height: 100%; transform: translateX(-50%); }
 .onsen .pool { position: absolute; left: 0; right: 0; bottom: 0; height: 42%; }
 .onsen .steam { position: absolute; bottom: 30%; width: 26px; height: 60px; border-radius: 50%; background: radial-gradient(rgba(255,255,255,.9), rgba(255,255,255,0) 70%); animation: steam 3s ease-in infinite; }
