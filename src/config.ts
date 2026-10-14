@@ -47,7 +47,11 @@ export const BOOSTERS: { id: BoosterId; price: number; icon: string }[] = [
   { id: 'freeze', price: 120, icon: 'freeze' },
 ];
 
-export type ItemKind = 'skin' | 'bg' | 'hat';
+export type ItemKind = 'skin' | 'bg' | 'hat' | 'glasses' | 'back' | 'held';
+
+/** Capybara outfit slots (all can be worn at once). */
+export type OutfitSlot = 'hat' | 'glasses' | 'back' | 'held';
+export const OUTFIT_SLOTS: OutfitSlot[] = ['hat', 'glasses', 'back', 'held'];
 
 export interface ShopItem {
   id: string;
@@ -84,19 +88,34 @@ export const BACKGROUNDS: ShopItem[] = [
 ];
 
 export const HATS: ShopItem[] = [
-  { id: 'none', kind: 'hat' },
   { id: 'mandarin', kind: 'hat' },
   { id: 'party', kind: 'hat', price: 250 },
   { id: 'flowers', kind: 'hat', price: 350 },
-  { id: 'beanie', kind: 'hat', price: 450 },
-  { id: 'chef', kind: 'hat', price: 550 },
-  { id: 'cowboy', kind: 'hat', price: 700 },
+  { id: 'cowboy', kind: 'hat', price: 600 },
   { id: 'crown', kind: 'hat', ads: 3 },
-  { id: 'headphones', kind: 'hat', ads: 3 },
-  { id: 'wizard', kind: 'hat', ads: 3 },
 ];
 
-export const ALL_ITEMS: ShopItem[] = [...SKINS, ...BACKGROUNDS, ...HATS];
+export const GLASSES: ShopItem[] = [
+  { id: 'round', kind: 'glasses', price: 200 },
+  { id: 'sun', kind: 'glasses', price: 350 },
+  { id: 'hearts', kind: 'glasses', ads: 3 },
+];
+
+export const BACKS: ShopItem[] = [
+  { id: 'school', kind: 'back', price: 400 },
+  { id: 'mandarin', kind: 'back', price: 550 },
+  { id: 'turtle', kind: 'back', ads: 3 },
+];
+
+export const HELD: ShopItem[] = [
+  { id: 'red', kind: 'held', price: 200 },
+  { id: 'star', kind: 'held', price: 450 },
+  { id: 'heart', kind: 'held', ads: 3 },
+];
+
+export const OUTFIT_ITEMS: Record<OutfitSlot, ShopItem[]> = { hat: HATS, glasses: GLASSES, back: BACKS, held: HELD };
+
+export const ALL_ITEMS: ShopItem[] = [...SKINS, ...BACKGROUNDS, ...HATS, ...GLASSES, ...BACKS, ...HELD];
 
 export function itemKey(item: ShopItem): string {
   return `${item.kind}:${item.id}`;

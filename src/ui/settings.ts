@@ -3,7 +3,7 @@ import { Save } from '../core/save';
 import { t } from '../i18n';
 import { capySvg, icon } from '../render/art';
 import { button, confirmDialog, h, refreshCoins, type Screen } from './dom';
-import { nav, setTheme } from './nav';
+import { nav, setTheme, myOutfit } from './nav';
 
 export class SettingsScreen implements Screen {
   el = h('section', { class: 'screen settings' });
@@ -16,7 +16,7 @@ export class SettingsScreen implements Screen {
     top.appendChild(h('h2', {}, t('settings')));
     this.el.appendChild(top);
     const wrap = h('div', { style: 'overflow:auto;flex:1;touch-action:pan-y' });
-    wrap.appendChild(h('div', { class: 'settings-capy' }, capySvg({ hat: Save.data.equipped.hat, mood: 'think' })));
+    wrap.appendChild(h('div', { class: 'settings-capy' }, capySvg({ ...myOutfit(), mood: 'think' })));
     const panel = h('div', { class: 'panel settings-panel' });
     const s = Save.data.settings;
     const apply = () => {

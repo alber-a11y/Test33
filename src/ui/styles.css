@@ -135,6 +135,8 @@ html, body {
 .capy-happy .capy-bodyg { animation: capy-hop .6s ease-in-out infinite; }
 .capy-sad .capy-headg { transform: translateY(4px) rotate(-4deg); animation: none; }
 .capy-think .capy-headg { animation: capy-tilt 2.4s ease-in-out infinite; }
+.capy .capy-balloon { transform-origin: 166px 112px; animation: balloon-sway 3s ease-in-out infinite; }
+@keyframes balloon-sway { 50% { transform: rotate(-5deg); } }
 .capy-z text { animation: zz 2.4s ease-in-out infinite; }
 .capy-z text:nth-child(2) { animation-delay: .6s; }
 @keyframes capy-bob { 50% { transform: translateY(3px) rotate(1.2deg); } }
@@ -157,7 +159,7 @@ html, body {
 .logo span:nth-child(2) { animation-delay: .2s; color: #8ee86b; }
 @keyframes logo-wave { 50% { transform: translateY(-6px) rotate(3deg); } }
 .tagline { font-weight: 900; font-size: 18px; color: #fff; background: rgba(90,52,24,.55); padding: 4px 14px; border-radius: 999px; margin-top: 6px; }
-.onsen { position: relative; width: min(330px, 78vw); height: min(250px, 30vh); min-height: 150px; margin: 18px 0 4px; }
+.onsen { position: relative; width: min(330px, 78vw); height: min(250px, 30vh); min-height: 150px; margin: 34px 0 4px; }
 .onsen .capy { position: absolute; left: 50%; bottom: 18%; height: 100%; transform: translateX(-50%); }
 .onsen .pool { position: absolute; left: 0; right: 0; bottom: 0; height: 42%; }
 .onsen .steam { position: absolute; bottom: 30%; width: 26px; height: 60px; border-radius: 50%; background: radial-gradient(rgba(255,255,255,.9), rgba(255,255,255,0) 70%); animation: steam 3s ease-in infinite; }
@@ -212,6 +214,8 @@ html, body {
 .tab.on { background: var(--orange); color: #fff; box-shadow: 0 4px 0 var(--orange-d); }
 .shop-body { flex: 1; overflow-y: auto; touch-action: pan-y; margin: 0 -12px; padding: 4px 12px 20px; scrollbar-width: none; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; max-width: 980px; margin: 0 auto; }
+.grid-title { grid-column: 1 / -1; font-weight: 900; font-size: 22px; color: #fff; -webkit-text-stroke: 1.5px var(--ink); paint-order: stroke fill; text-shadow: 0 2px 0 rgba(90,52,24,.5); margin: 6px 0 -4px; }
+.grid-title:first-child { margin-top: 0; }
 .card { background: var(--cream); border-radius: 22px; border: 3px solid var(--panel-border); box-shadow: 0 5px 0 rgba(196,128,60,.3); padding: 10px; display: flex; flex-direction: column; align-items: center; gap: 8px; position: relative; }
 .card.equipped { border-color: #6bd34a; box-shadow: 0 5px 0 #3f9d22; }
 .card .preview { width: 100%; aspect-ratio: 1.25; border-radius: 16px; background: #fff; display: grid; place-items: center; overflow: hidden; position: relative; }

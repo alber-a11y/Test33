@@ -5,7 +5,7 @@ import { t } from '../i18n';
 import { capySvg, coinSvg, icon, prizeSvg } from '../render/art';
 import { prizeOf } from '../config';
 import { button, coinsPill, h, type Screen } from './dom';
-import { nav, setTheme } from './nav';
+import { nav, setTheme, myOutfit } from './nav';
 import { dailyAvailable, dailyDialog, freeCoinsLeft, watchForFreeCoins } from './rewards';
 
 export class MenuScreen implements Screen {
@@ -64,9 +64,8 @@ export class MenuScreen implements Screen {
   }
 
   private drawOnsen(): void {
-    const hat = Save.data.equipped.hat;
     const steam = [18, 42, 70].map((l, i) => `<div class="steam" style="left:${l}%;animation-delay:${i * 0.9}s"></div>`).join('');
-    this.capyHost.innerHTML = `${capySvg({ hat, mood: 'sleep' })}
+    this.capyHost.innerHTML = `${capySvg({ ...myOutfit(), mood: 'sleep' })}
       <svg class="pool" viewBox="0 0 300 110" preserveAspectRatio="none">
         <ellipse cx="150" cy="58" rx="148" ry="50" fill="#9c8a7a"/>
         <ellipse cx="150" cy="52" rx="140" ry="44" fill="#7fd8f0"/>

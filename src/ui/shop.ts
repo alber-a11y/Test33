@@ -1,16 +1,18 @@
 import { audio } from '../audio/audio';
 import { Ads } from '../ads/ads';
-import { BACKGROUNDS, BOOSTERS, ECONOMY, HATS, SKINS, type ShopItem, type ThemeId, itemKey } from '../config';
+import { BACKGROUNDS, BOOSTERS, ECONOMY, OUTFIT_ITEMS, OUTFIT_SLOTS, type OutfitSlot, SKINS, type ShopItem, type ThemeId, itemKey } from '../config';
 import { Save } from '../core/save';
 import { dict, t } from '../i18n';
 import { capySvg, coinSvg, icon } from '../render/art';
 import { THEME_DEFS } from '../render/backgrounds';
 import { skinPreview } from '../render/preview';
 import { adBadge, button, coinsPill, h, type Screen, toast } from './dom';
-import { nav, setTheme } from './nav';
+import { myOutfit, nav, setTheme } from './nav';
 import { boosterDesc, boosterName, coinRain, freeCoinsLeft, watchForFreeCoins } from './rewards';
 
-type Tab = 'skins' | 'bgs' | 'hats' | 'boosters' | 'coins';
+type Tab = 'skins' | 'bgs' | 'capy' | 'boosters' | 'coins';
+
+const isOutfit = (item: ShopItem): item is ShopItem & { kind: OutfitSlot } => (OUTFIT_SLOTS as string[]).includes(item.kind);
 
 export class ShopScreen implements Screen {
   el = h('section', { class: 'screen shop' });
@@ -38,7 +40,7 @@ export class ShopScreen implements Screen {
     const tabs: [Tab, string, string][] = [
       ['skins', d.tabSkins, 'palette'],
       ['bgs', d.tabBgs, 'image'],
-      ['hats', d.tabHats, 'hat'],
+      ['capy', d.tabCapy, 'hat'],
       ['boosters', d.tabBoosters, 'wand'],
       ['coins', d.tabCoins, 'coins'],
     ];
@@ -56,7 +58,8 @@ export class ShopScreen implements Screen {
   }
 
   private equippedId(item: ShopItem): string {
-    return item.kind === 'skin' ? Save.data.equipped.skin : item.kind === 'bg' ? Save.data.equipped.bg : Save.data.equipped.hat;
+    if (isOutfit(item)) return Save.data.equipped[item.kind];
+    return item.kind === 'skin' ? Save.data.equipped.skin : Save.data.equipped.bg;
   }
 
   private equip(item: ShopItem): void {
@@ -64,13 +67,14 @@ export class ShopScreen implements Screen {
     else if (item.kind === 'bg') {
       Save.data.equipped.bg = item.id;
       setTheme(Save.data.level);
-    } else Save.data.equipped.hat = item.id;
+    } else if (isOutfit(item)) Save.data.equipped[item.kind] = item.id;
     Save.save();
   }
 
   private itemName(item: ShopItem): string {
     const d = dict();
-    return (item.kind === 'skin' ? d.skins : item.kind === 'bg' ? d.bgs : d.hats)[item.id] ?? item.id;
+    const names = { skin: d.skins, bg: d.bgs, hat: d.hats, glasses: d.glasses, back: d.backs, held: d.held }[item.kind];
+    return names[item.id] ?? item.id;
   }
 
   private card(item: ShopItem): HTMLElement {
@@ -92,11 +96,19 @@ export class ShopScreen implements Screen {
       }
     } else {
       prev.classList.add('hat-prev');
-      prev.innerHTML = capySvg({ hat: item.id, mood: 'idle' });
+      prev.innerHTML = capySvg({ ...myOutfit(), [item.kind]: item.id, mood: 'idle' });
     }
     card.appendChild(prev);
     card.appendChild(h('div', { class: 'name' }, this.itemName(item)));
-    if (equipped) {
+    if (equipped && isOutfit(item)) {
+      card.appendChild(
+        button(`${icon('check')} ${t('takeOff')}`, 'btn-ghost', () => {
+          Save.data.equipped[item.kind] = 'none';
+          Save.save();
+          this.renderBody();
+        }),
+      );
+    } else if (equipped) {
       card.appendChild(button(`${icon('check')} ${t('equipped')}`, 'btn-ghost', () => {}));
     } else if (owned) {
       card.appendChild(
@@ -160,7 +172,12 @@ export class ShopScreen implements Screen {
     const grid = h('div', { class: 'grid' });
     if (this.tab === 'skins') SKINS.forEach((i) => grid.appendChild(this.card(i)));
     else if (this.tab === 'bgs') BACKGROUNDS.forEach((i) => grid.appendChild(this.card(i)));
-    else if (this.tab === 'hats') HATS.forEach((i) => grid.appendChild(this.card(i)));
+    else if (this.tab === 'capy') {
+      for (const slot of OUTFIT_SLOTS) {
+        grid.appendChild(h('div', { class: 'grid-title' }, dict().slots[slot]));
+        OUTFIT_ITEMS[slot].forEach((i) => grid.appendChild(this.card(i)));
+      }
+    }
     else if (this.tab === 'boosters') {
       for (const b of BOOSTERS) {
         const card = h('div', { class: 'card booster-card' });

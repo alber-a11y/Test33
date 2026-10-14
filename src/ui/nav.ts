@@ -24,3 +24,9 @@ export function themeFor(level: number): ThemeId {
 export function setTheme(level: number): void {
   bgRef.bg?.set(themeFor(level));
 }
+
+/** The player's current capybara outfit (spread into capySvg options). */
+export function myOutfit(): { hat: string; glasses: string; back: string; held: string } {
+  const e = Save.data.equipped;
+  return { hat: e.hat, glasses: e.glasses, back: e.back, held: e.held };
+}

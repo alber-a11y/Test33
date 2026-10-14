@@ -1,4 +1,4 @@
-import { ECONOMY, type BoosterId, type ShopItem, itemKey } from '../config';
+import { ECONOMY, HATS, type BoosterId, type OutfitSlot, type ShopItem, itemKey } from '../config';
 import { Emitter } from './events';
 
 export type Lang = 'ru' | 'en';
@@ -11,7 +11,7 @@ export interface SaveData {
   coins: number;
   boosters: Record<BoosterId, number>;
   owned: string[];
-  equipped: { skin: string; bg: string; hat: string };
+  equipped: { skin: string; bg: string } & Record<OutfitSlot, string>;
   adProgress: Record<string, number>;
   settings: {
     musicOn: boolean;
@@ -48,8 +48,8 @@ function defaults(): SaveData {
     stars: {},
     coins: ECONOMY.startCoins,
     boosters: { ...ECONOMY.startBoosters },
-    owned: ['skin:classic', 'bg:auto', 'bg:meadow', 'hat:none', 'hat:mandarin'],
-    equipped: { skin: 'classic', bg: 'auto', hat: 'mandarin' },
+    owned: ['skin:classic', 'bg:auto', 'bg:meadow', 'hat:mandarin'],
+    equipped: { skin: 'classic', bg: 'auto', hat: 'mandarin', glasses: 'none', back: 'none', held: 'none' },
     adProgress: {},
     settings: { musicOn: true, sfxOn: true, music: 0.7, sfx: 0.9, vibro: true, lang: detectLang() },
     basket: 0,
@@ -84,6 +84,9 @@ class SaveStore extends Emitter<SaveEvents> {
           v: VERSION,
         };
         for (const k of d.owned) if (!this.data.owned.includes(k)) this.data.owned.push(k);
+        // hats retired from the catalog fall back to the default
+        const eq = this.data.equipped;
+        if (eq.hat !== 'none' && !HATS.some((h) => h.id === eq.hat)) eq.hat = 'mandarin';
       }
     } catch {
       this.data = defaults();

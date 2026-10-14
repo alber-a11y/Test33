@@ -14,7 +14,7 @@ import { fx } from '../render/fx';
 import { getSkin } from '../render/skins';
 import { stage } from '../render/stage';
 import { adBadge, anyModalOpen, button, closeAllModals, coinsPill, h, modal, type Screen, toast, vibrate } from './dom';
-import { nav, themeFor, bgRef } from './nav';
+import { nav, themeFor, bgRef, myOutfit } from './nav';
 import { boosterName, boosterOffer, chestDialog, coinRain } from './rewards';
 
 type State = 'loading' | 'play' | 'won' | 'lost';
@@ -317,7 +317,7 @@ export class GameScreen implements Screen {
 
   private setMood(m: CapyMood): void {
     this.mood = m;
-    this.capyEl.innerHTML = capySvg({ hat: Save.data.equipped.hat, mood: m });
+    this.capyEl.innerHTML = capySvg({ ...myOutfit(), mood: m });
     this.capyEl.appendChild(this.bubble);
   }
 
@@ -474,7 +474,7 @@ export class GameScreen implements Screen {
         if (i < stars) audio.sfx('star', { pitch: i * 2 });
       }, 250 + i * 280),
     );
-    m.panel.appendChild(h('div', { class: 'dlg-capy' }, capySvg({ hat: Save.data.equipped.hat, mood: 'happy' })));
+    m.panel.appendChild(h('div', { class: 'dlg-capy' }, capySvg({ ...myOutfit(), mood: 'happy' })));
     const reward = h('div', { class: 'reward-line' }, `${coinSvg()}<span>${coins}</span>`);
     m.panel.appendChild(reward);
     // multiplier bar
@@ -531,7 +531,7 @@ export class GameScreen implements Screen {
     clearTimeout(this.idleTimer);
     this.setMood('sad');
     const m = modal({ title: t('lose'), ribbon: '', closable: false });
-    m.panel.appendChild(h('div', { class: 'dlg-capy' }, capySvg({ hat: Save.data.equipped.hat, mood: reason === 'bomb' ? 'wow' : 'sad' })));
+    m.panel.appendChild(h('div', { class: 'dlg-capy' }, capySvg({ ...myOutfit(), mood: reason === 'bomb' ? 'wow' : 'sad' })));
     m.panel.appendChild(h('p', {}, reason === 'bomb' ? t('loseBomb').split('!')[0] + '!' : t('loseMoves')));
     const col = h('div', { class: 'col' });
     let continued = false;

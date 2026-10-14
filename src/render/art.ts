@@ -76,15 +76,6 @@ export function hatSvg(hat: string): string {
             .join('')}<circle r="3.6" fill="#FFF3B0"/></g>`;
         })
         .join('')}<path d="M56 40 Q100 22 144 40" stroke="#66BB6A" stroke-width="3" fill="none"/></g>`;
-    case 'beanie':
-      return `<g class="capy-hat"><path d="M54 46 C54 6 146 6 146 46 Z" fill="#E53950"/>
-        <rect x="50" y="38" width="100" height="14" rx="7" fill="#F8F1E5"/>
-        ${[62, 74, 86, 98, 110, 122, 134].map((x) => `<path d="M${x} 40 v10" stroke="#E0D6C6" stroke-width="2.4"/>`).join('')}
-        <circle cx="100" cy="6" r="10" fill="#F8F1E5"/><path d="M70 30 Q100 18 130 30" stroke="#FF7B8D" stroke-width="3" fill="none"/></g>`;
-    case 'chef':
-      return `<g class="capy-hat"><rect x="70" y="18" width="60" height="24" rx="4" fill="#fff" stroke="#E2E2E2" stroke-width="2"/>
-        <circle cx="78" cy="14" r="14" fill="#fff"/><circle cx="100" cy="6" r="16" fill="#fff"/><circle cx="122" cy="14" r="14" fill="#fff"/>
-        <path d="M84 24 v14 M100 22 v16 M116 24 v14" stroke="#ECECEC" stroke-width="2"/></g>`;
     case 'cowboy':
       return `<g class="capy-hat"><ellipse cx="100" cy="38" rx="58" ry="10" fill="#8D5A2B"/>
         <path d="M72 38 C70 6 86 4 100 14 C114 4 130 6 128 38 Z" fill="#A86B34"/>
@@ -93,18 +84,100 @@ export function hatSvg(hat: string): string {
       return `<g class="capy-hat"><path d="M70 40 L66 8 L84 24 L100 2 L116 24 L134 8 L130 40 Z" fill="url(#gGold)" stroke="#B8860B" stroke-width="2" stroke-linejoin="round"/>
         <circle cx="100" cy="28" r="5" fill="#E53950"/><circle cx="82" cy="32" r="3.5" fill="#4FC3F7"/><circle cx="118" cy="32" r="3.5" fill="#66BB6A"/>
         <circle cx="66" cy="8" r="3.5" fill="#FFE082"/><circle cx="100" cy="2" r="3.5" fill="#FFE082"/><circle cx="134" cy="8" r="3.5" fill="#FFE082"/></g>`;
-    case 'headphones':
-      return `<g class="capy-hat"><path d="M46 70 C42 10 158 10 154 70" stroke="#37474F" stroke-width="9" fill="none" stroke-linecap="round"/>
-        <rect x="32" y="58" width="22" height="34" rx="10" fill="#FF5DA2"/><rect x="146" y="58" width="22" height="34" rx="10" fill="#FF5DA2"/>
-        <rect x="38" y="64" width="10" height="22" rx="5" fill="#FF9EC8"/><rect x="152" y="64" width="10" height="22" rx="5" fill="#FF9EC8"/></g>`;
-    case 'wizard':
-      return `<g class="capy-hat"><ellipse cx="100" cy="38" rx="46" ry="9" fill="#5E35B1"/>
-        <path d="M74 38 Q92 10 104 -14 Q110 -20 116 -10 Q112 -6 110 -2 Q118 16 126 38 Z" fill="#7E57C2"/>
-        <path d="M78 32 Q100 38 122 32 L124 38 Q100 44 76 38Z" fill="#FFD54F"/>
-        <path d="M96 12 l2 4 4 1 -3 3 1 4 -4 -2 -4 2 1 -4 -3 -3 4 -1z" fill="#FFE082"/><circle cx="110" cy="24" r="2" fill="#FFE082"/></g>`;
     default:
       return '';
   }
+}
+
+
+// ---------- outfit accessories (capybara coordinates) ----------
+
+export function glassesSvg(id: string): string {
+  const temple = `<path d="M129 55 L148 45" stroke="#2B2B2B" stroke-width="3" stroke-linecap="round"/>`;
+  switch (id) {
+    case 'sun':
+      return `<g class="capy-glasses">${temple}
+        <path d="M98 53 L105 55" stroke="#2B2B2B" stroke-width="3" stroke-linecap="round"/>
+        <ellipse cx="92" cy="53" rx="6" ry="8" fill="#1F2430" stroke="#2B2B2B" stroke-width="2.5"/>
+        <rect x="104" y="48" width="26" height="19" rx="8" fill="url(#gShade)" stroke="#2B2B2B" stroke-width="3"/>
+        <path d="M109 53 L115 51" stroke="#fff" stroke-width="2.2" stroke-linecap="round" opacity=".75"/></g>`;
+    case 'hearts': {
+      const heart = (x: number, y: number, k: number) =>
+        `<path d="M${x} ${y + 9 * k} C${x - 14 * k} ${y} ${x - 10 * k} ${y - 9 * k} ${x} ${y - 4 * k} C${x + 10 * k} ${y - 9 * k} ${x + 14 * k} ${y} ${x} ${y + 9 * k}Z" fill="#FF4F8B" fill-opacity=".85" stroke="#D81B60" stroke-width="2.4" stroke-linejoin="round"/>`;
+      return `<g class="capy-glasses"><path d="M129 55 L148 45" stroke="#D81B60" stroke-width="3" stroke-linecap="round"/>
+        <path d="M97 53 L105 56" stroke="#D81B60" stroke-width="3" stroke-linecap="round"/>
+        ${heart(92, 53, 0.7)}${heart(117, 58, 1.05)}
+        <path d="M110 53 q3 -3 6 -2" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" opacity=".8"/></g>`;
+    }
+    case 'round':
+      return `<g class="capy-glasses"><path d="M128 56 L148 45" stroke="#6D4C41" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M98 53 L106 56" stroke="#6D4C41" stroke-width="2.6" stroke-linecap="round"/>
+        <ellipse cx="92" cy="53" rx="6" ry="8.5" fill="#fff" fill-opacity=".25" stroke="#6D4C41" stroke-width="2.4"/>
+        <circle cx="117" cy="58" r="11" fill="#fff" fill-opacity=".25" stroke="#6D4C41" stroke-width="2.8"/>
+        <path d="M110 53 q3 -3 7 -3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" opacity=".8"/></g>`;
+    default:
+      return '';
+  }
+}
+
+/** Backpack: `behind` sits behind the body, `front` (straps) over the chest. */
+export function backSvg(id: string): { behind: string; front: string } {
+  const straps = (c: string, d: string) =>
+    `<path d="M150 98 C124 104 100 118 80 136" stroke="${d}" stroke-width="9" fill="none" stroke-linecap="round"/>
+     <path d="M150 98 C124 104 100 118 80 136" stroke="${c}" stroke-width="6" fill="none" stroke-linecap="round"/>
+     <path d="M166 150 C148 160 122 162 104 154" stroke="${d}" stroke-width="8" fill="none" stroke-linecap="round" opacity=".9"/>
+     <path d="M166 150 C148 160 122 162 104 154" stroke="${c}" stroke-width="5" fill="none" stroke-linecap="round" opacity=".9"/>`;
+  switch (id) {
+    case 'turtle':
+      return {
+        behind: `<g class="capy-back">
+          <ellipse cx="184" cy="150" rx="7" ry="5" fill="#7CC46A" transform="rotate(30 184 150)"/>
+          <ellipse cx="180" cy="102" rx="7" ry="5" fill="#7CC46A" transform="rotate(-30 180 102)"/>
+          <circle cx="186" cy="88" r="9" fill="#8BD27A" stroke="#4E9A44" stroke-width="2"/>
+          <circle cx="188" cy="86" r="1.8" fill="#1F2A1A"/><path d="M184 92 q3 2 6 0" stroke="#1F2A1A" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+          <ellipse cx="172" cy="126" rx="21" ry="29" fill="#5DAF4E" stroke="#3E8A36" stroke-width="2.5" transform="rotate(8 172 126)"/>
+          <path d="M163 112 l9 -6 9 6 v10 l-9 6 -9 -6z M163 134 l9 -6 9 6 v10 l-9 6 -9 -6z" fill="#8BD27A" stroke="#3E8A36" stroke-width="1.6"/>
+          <ellipse cx="166" cy="108" rx="5" ry="3" fill="#fff" opacity=".35"/></g>`,
+        front: straps('#8BD27A', '#4E9A44'),
+      };
+    case 'school':
+      return {
+        behind: `<g class="capy-back">
+          <rect x="152" y="96" width="38" height="62" rx="14" fill="#E53950" stroke="#B71C3A" stroke-width="2.5" transform="rotate(8 171 127)"/>
+          <rect x="160" y="128" width="26" height="24" rx="8" fill="#FF6B7F" stroke="#B71C3A" stroke-width="2" transform="rotate(8 173 140)"/>
+          <rect x="169" y="124" width="9" height="7" rx="2" fill="#FFD54F" transform="rotate(8 173 127)"/>
+          <path d="M166 96 q8 -12 18 2" stroke="#B71C3A" stroke-width="4" fill="none" stroke-linecap="round"/></g>`,
+        front: straps('#E53950', '#B71C3A'),
+      };
+    case 'mandarin':
+      return {
+        behind: `<g class="capy-back">
+          <circle cx="174" cy="130" r="26" fill="url(#gMand)" stroke="#D9620E" stroke-width="2"/>
+          ${[[166, 118], [182, 124], [176, 142], [164, 136]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.6" fill="#E06A0E"/>`).join('')}
+          <path d="M170 106 C176 92 192 92 196 98 C188 106 178 108 170 106Z" fill="#4CAF50"/>
+          <path d="M152 126 h16" stroke="#C25A0C" stroke-width="2.5" stroke-linecap="round"/></g>`,
+        front: straps('#8D6E63', '#5D4037'),
+      };
+    default:
+      return { behind: '', front: '' };
+  }
+}
+
+/** Balloon tied to the capybara's back, floating above-right. */
+export function heldSvg(id: string): string {
+  if (!id || id === 'none') return '';
+  const string = `<path d="M166 112 C176 90 166 60 176 26" stroke="#8D8D8D" stroke-width="1.6" fill="none"/>`;
+  let ball = '';
+  if (id === 'red')
+    ball = `<ellipse cx="176" cy="-2" rx="18" ry="22" fill="url(#gBalloonR)"/><path d="M172 20 l4 6 4 -6z" fill="#C62828"/>
+      <ellipse cx="169" cy="-10" rx="5" ry="8" fill="#fff" opacity=".45" transform="rotate(-20 169 -10)"/>`;
+  else if (id === 'heart')
+    ball = `<path d="M176 24 C150 6 154 -22 170 -20 C174 -19 176 -15 176 -12 C176 -15 178 -19 182 -20 C198 -22 202 6 176 24Z" fill="url(#gBalloonP)"/>
+      <path d="M172 24 l4 4 4 -4z" fill="#C2185B"/><ellipse cx="166" cy="-10" rx="4" ry="6" fill="#fff" opacity=".5" transform="rotate(-25 166 -10)"/>`;
+  else
+    ball = `<path d="M176 -24 L182 -9 L198 -8 L186 3 L190 19 L176 10 L162 19 L166 3 L154 -8 L170 -9Z" fill="url(#gGold)" stroke="#E6A100" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M174 18 l2 6 2 -6z" fill="#E6A100"/><circle cx="171" cy="-4" r="2.4" fill="#fff" opacity=".7"/>`;
+  return `<g class="capy-balloon">${string}${ball}</g>`;
 }
 
 const DEFS = `<defs>
@@ -113,6 +186,9 @@ const DEFS = `<defs>
   <radialGradient id="gBody" cx="38%" cy="28%" r="85%"><stop offset="0" stop-color="${C.furLight}"/><stop offset=".55" stop-color="${C.fur}"/><stop offset="1" stop-color="${C.furDark}"/></radialGradient>
   <radialGradient id="gHead" cx="55%" cy="28%" r="80%"><stop offset="0" stop-color="#DEA670"/><stop offset=".55" stop-color="${C.fur}"/><stop offset="1" stop-color="#9C5F31"/></radialGradient>
   <radialGradient id="gSnout" cx="38%" cy="30%" r="80%"><stop offset="0" stop-color="#946038"/><stop offset=".6" stop-color="${C.muzzle}"/><stop offset="1" stop-color="#5A311B"/></radialGradient>
+ <linearGradient id="gShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3A3F58"/><stop offset="1" stop-color="#11131C"/></linearGradient>
+  <radialGradient id="gBalloonR" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#FF8A80"/><stop offset=".6" stop-color="#F44336"/><stop offset="1" stop-color="#C62828"/></radialGradient>
+  <radialGradient id="gBalloonP" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#FFB3D1"/><stop offset=".6" stop-color="#FF5C9D"/><stop offset="1" stop-color="#D81B60"/></radialGradient>
   <radialGradient id="gArm" cx="45%" cy="30%" r="80%"><stop offset="0" stop-color="${C.furLight}"/><stop offset="1" stop-color="${C.fur}"/></radialGradient>
 </defs>`;
 
@@ -125,19 +201,32 @@ const HEAD = 'M52 74 C46 40 74 20 110 20 C146 20 166 42 164 72 C162 100 142 114 
 const SNOUT = 'M72 44 C50 40 28 54 28 76 C28 98 46 108 68 106 C88 104 96 92 96 76 C96 58 88 46 72 44 Z';
 
 /** Plush capybara in 3/4 view, snout to the left. viewBox 0 -24 200 224 (hats may overflow upward). */
-export function capySvg(opts: { hat?: string; mood?: CapyMood; extra?: string } = {}): string {
+export interface CapyOpts {
+  mood?: CapyMood;
+  hat?: string;
+  glasses?: string;
+  back?: string;
+  held?: string;
+  extra?: string;
+}
+
+export function capySvg(opts: CapyOpts = {}): string {
   const mood = opts.mood ?? 'idle';
   const hat = opts.hat ?? 'mandarin';
-  const hatShift = hat === 'headphones' ? 'translate(24 -6) scale(.86)' : 'translate(10 -12)';
+  const back = backSvg(opts.back ?? 'none');
+  const hatShift = 'translate(10 -12)';
   return uniq(`<svg class="capy capy-${mood}" viewBox="0 -24 200 224" xmlns="http://www.w3.org/2000/svg">${DEFS}
   <ellipse cx="112" cy="191" rx="64" ry="8" fill="#000" opacity=".14"/>
+  ${heldSvg(opts.held ?? 'none')}
   <g class="capy-bodyg">
+    <g transform="translate(-7 2)">${back.behind}</g>
     <path d="${BODY}" fill="url(#gBody)"/>
     ${fuzz(BODY)}
     <ellipse cx="96" cy="152" rx="28" ry="26" fill="${C.furLight}" opacity=".35"/>
     <path d="M122 172 C122 148 152 140 168 158" stroke="${C.furDark}" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".45"/>
     <ellipse cx="84" cy="186" rx="19" ry="8" fill="${C.ear}"/><ellipse cx="80" cy="184" rx="9" ry="3" fill="#fff" opacity=".12"/>
     <ellipse cx="150" cy="188" rx="17" ry="7" fill="${C.ear}"/>
+    ${back.front}
     <ellipse class="capy-arm-l" cx="58" cy="122" rx="11" ry="8.5" fill="${C.fur}" stroke="${C.furDark}" stroke-width="1.5" stroke-opacity=".5" transform="rotate(-32 58 122)"/>
     <ellipse class="capy-arm-r" cx="82" cy="132" rx="14.5" ry="11" fill="url(#gArm)" stroke="${C.furDark}" stroke-width="1.6" stroke-opacity=".45" transform="rotate(-28 82 132)"/>
     <ellipse cx="76" cy="128" rx="5" ry="3" fill="#fff" opacity=".18" transform="rotate(-28 76 128)"/>
@@ -157,6 +246,7 @@ export function capySvg(opts: { hat?: string; mood?: CapyMood; extra?: string } 
     <ellipse cx="52" cy="58" rx="13" ry="6" fill="#fff" opacity=".12" transform="rotate(-12 52 58)"/>
     <path d="M36 63 q4 -3 8 0 M50 59 q4 -3 8 0" stroke="#2E160A" stroke-width="2.6" fill="none" stroke-linecap="round"/>
     ${mouth(mood)}
+    ${glassesSvg(opts.glasses ?? 'none')}
     <g transform="${hatShift}">${hatSvg(hat)}</g>
   </g>
   ${mood === 'sleep' ? `<g class="capy-z" fill="#6D8BC9" font-family="Nunito,Arial" font-weight="900"><text x="150" y="6" font-size="22">z</text><text x="166" y="-12" font-size="16">z</text></g>` : ''}

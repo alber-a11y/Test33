@@ -186,7 +186,7 @@ const scenarios = {
   async menu(dev) { const { ctx, p } = await page(dev, '', SAVE); await p.screenshot({ path: `${out}/${dev}-menu.png` }); await ctx.close(); },
   async map(dev) { const { ctx, p } = await page(dev, '?screen=map', SAVE); await p.waitForTimeout(600); await p.screenshot({ path: `${out}/${dev}-map.png` }); await ctx.close(); },
   async shop(dev) { const { ctx, p } = await page(dev, '?screen=shop', SAVE); await p.waitForTimeout(800); await p.screenshot({ path: `${out}/${dev}-shop.png` }); await ctx.close(); },
-  async shopHats(dev) { const { ctx, p } = await page(dev, '?screen=shop&tab=hats', SAVE); await p.waitForTimeout(500); await p.screenshot({ path: `${out}/${dev}-shop-hats.png` }); await ctx.close(); },
+  async shopHats(dev) { const { ctx, p } = await page(dev, '?screen=shop&tab=capy', SAVE); await p.waitForTimeout(500); await p.screenshot({ path: `${out}/${dev}-shop-hats.png` }); await ctx.close(); },
   async shopBgs(dev) { const { ctx, p } = await page(dev, '?screen=shop&tab=bgs', SAVE); await p.waitForTimeout(500); await p.screenshot({ path: `${out}/${dev}-shop-bgs.png` }); await ctx.close(); },
   async settings(dev) { const { ctx, p } = await page(dev, '?screen=settings', SAVE); await p.screenshot({ path: `${out}/${dev}-settings.png` }); await ctx.close(); },
   async levels(dev) {

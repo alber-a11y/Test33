@@ -5,7 +5,7 @@ import { modeOf } from '../game/levels';
 import { dict, t } from '../i18n';
 import { capySvg, icon, prizeSvg } from '../render/art';
 import { button, coinsPill, h, type Screen } from './dom';
-import { nav, setTheme } from './nav';
+import { nav, setTheme, myOutfit } from './nav';
 
 const SPACING = 112;
 const TOP_PAD = 220;
@@ -84,7 +84,7 @@ export class MapScreen implements Screen {
       <path d="${d}" stroke="#fff6e6" stroke-width="22" fill="none" stroke-linecap="round"/>
       <path d="${d}" stroke="#e8cfa8" stroke-width="6" fill="none" stroke-dasharray="2 18" stroke-linecap="round"/>
       <path d="${d}" stroke="#ffcf4a" stroke-width="10" fill="none" stroke-linecap="round" clip-path="url(#mapdone)"/>`;
-    this.avatar.innerHTML = capySvg({ hat: Save.data.equipped.hat, mood: 'happy' });
+    this.avatar.innerHTML = capySvg({ ...myOutfit(), mood: 'happy' });
     this.avatar.style.left = `${this.x(unlocked)}px`;
     this.avatar.style.top = `${this.y(unlocked)}px`;
   }
